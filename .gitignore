@@ -7,3 +7,5 @@ measurements.json
 .env
 .env.*
 !.env.example
+
+.idea/
