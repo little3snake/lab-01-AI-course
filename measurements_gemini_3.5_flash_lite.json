@@ -1,0 +1,67 @@
+{
+  "provider": "google",
+  "model": "gemini-3.5-flash-lite",
+  "model_id": "gemini-3.5-flash-lite",
+  "token_counts": {
+    "sentence": {
+      "en": 13,
+      "ru": 18,
+      "kk": 31
+    },
+    "complaint": {
+      "en": 60,
+      "ru": 79,
+      "kk": 149
+    },
+    "complaint_json": {
+      "en": 65,
+      "ru": 84,
+      "kk": 154
+    },
+    "system_prompt": {
+      "en": 41,
+      "ru": 52,
+      "kk": 88
+    },
+    "my_text": {
+      "en": 45,
+      "ru": 50,
+      "kk": 83
+    },
+    "kazakh_shared": {
+      "en": 12,
+      "ru": 14,
+      "kk": 20
+    },
+    "kazakh_specific": {
+      "en": 10,
+      "ru": 11,
+      "kk": 27
+    }
+  },
+  "request_tokens": {
+    "en": 101,
+    "ru": 131,
+    "kk": 237
+  },
+  "one_request_billed": {
+    "en": {
+      "input_tokens": 101,
+      "output_tokens": 49,
+      "visible_output_tokens": 49,
+      "thinking_tokens": 0
+    },
+    "ru": {
+      "input_tokens": 131,
+      "output_tokens": 69,
+      "visible_output_tokens": 69,
+      "thinking_tokens": 0
+    },
+    "kk": {
+      "input_tokens": 237,
+      "output_tokens": 179,
+      "visible_output_tokens": 179,
+      "thinking_tokens": 0
+    }
+  }
+}
