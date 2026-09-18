@@ -270,33 +270,56 @@ python part1_offline.py
 
 **Вывод:** прогноз подтвердился. Просто с оберткой получилось на пять токенов больше во всех языках. Для другого JSON с несколькими полями нужно измерять заново, но пока надбавка идет только за оформление json.
 
-## Advanced — сравнение моделей по Task 7
+## Advanced Task 7 
+Вместо Haiku/Opus сравнивались Gemini 3.6 Flash и Gemini 3.5 Flash-Lite на одинаковых запросах
+EN/RU/KK:
 
-Tasks 4–6 (сокращение system prompt, реализация кэширования, ограничение ответа двумя предложениями) в предоставленных материалах не выполнены. Сравнение по Task 7 адаптировано с Haiku/Opus на Gemini 3.6 Flash / 3.5 Flash-Lite.
+```powershell
+python part2_measure_gemini.py --call --model gemini-3.6-flash
+python part2_measure_gemini.py --call --model gemini-3.5-flash-lite
+```
 
+Измерения находятся в `measurements_gemini.json` и `measurements_gemini_3.5_flash_lite.json`.
 
-### Критерии качества ответов нейронки на обращение
+| Модель | EN, USD/год | RU, USD/год | KK, USD/год |
+|---|---:|---:|---:|
+| Flash | 3 033 | 5 346 | 7 428 |
+| Flash-Lite | 279 | 387 | 946 |
 
-1. Не выдумывать причину изменения ставки и отказаться объяснять её без документов.
-2. Не придумывать ставки, номера счетов или новые даты.
-3. Отвечать на языке обращения.
-4. Предлагать конкретный следующий шаг.
+Расчёт: 5 000 запросов в день, 365 дней, фиксированные тарифы Part 3, output включает thinking. Стоимость Lite рассчитана по формуле из usage: в таблице цен скрипта её пока нет. Для KK Flash дороже в **7.85 раза**.
+
+Чек-лист:
+ - 1) отказ объяснять изменение ставки без документов, без выдуманной причины
+ - 2) нет выдуманных чисел и дат
+ - 3) деловой но понятный язык обращения
+ - 4) написан конкретный следующий шаг для решения проблемы. 
+
+| Ответ | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| Flash EN | Pass | Pass | Pass | Pass |
+| Flash RU | Pass | Pass | Pass | Pass |
+| Flash KK | Pass | Pass | Pass | Pass |
+| Flash-Lite EN | Pass | Pass | Pass | Pass |
+| Flash-Lite RU | Pass | Pass | Pass | Pass |
+| Flash-Lite KK | Pass | Pass | Pass | Pass |
+
+**Вывод:** минимальный чек-лист проходят все ответы, однако Lite RU создаёт впечатление, что отсутствующие документы были прочитаны. Flash прямо сообщает об их отсутствии и выбрана кандидатом для пилота, несмотря на большую стоимость. Для выбора Lite нужна дополнительная проверка на казахскоязычных обращениях.
 
 ## Файлы в лабе
 
-| Файл | Что выполнено                                                                     |
-|---|-----------------------------------------------------------------------------------|
-| `texts.py` | Добавлены MY_TEXT, KAZAKH_SHARED, KAZAKH_SPECIFIC, COMPLAINT_JSON и записи CORPUS |
-| `part0_tokenizers.py`, `part1_offline.py` | Без изменений                                                                     |
-| `part2_measure.py`, `part3_cost.py`, `prices.py` | Исходные Claude-скрипты сохранены                                                 |
-| `part2_measure_gemini.py` | Создан сборщик Gemini token counts и usage; текущий output — measurements.json    |
-| `prices_gemini.py` | Создана таблица цен Flash и функция стоимости                                     |
-| `part3_cost_gemini.py` | Создан расчёт Gemini, который по умолчанию читает measurements_gemini.json        |
-| `.env` | Использован для Gemini API-ключа; содержимое не публикуется                       |
-| `measurements_gemini.json`, `measurements.json` | Сохранены измерения в 2 версиях Gemini                                            |
-| `conclusion.txt` | Журнал команд, выводов и промежуточных выводов                                    |
+| Файл | Что выполнено                                                                            |
+|---|------------------------------------------------------------------------------------------|
+| `texts.py` | Добавлены MY_TEXT, KAZAKH_SHARED, KAZAKH_SPECIFIC, COMPLAINT_JSON и записи CORPUS        |
+| `part0_tokenizers.py`, `part1_offline.py` | Без изменений                                                                            |
+| `part2_measure.py`, `part3_cost.py`, `prices.py` | Исходные Claude-скрипты сохранены                                                        |
+| `part2_measure_gemini.py` | Создан сборщик Gemini token counts и usage; текущий output — measurements.json           |
+| `prices_gemini.py` | Создана таблица цен Flash и функция стоимости                                            |
+| `part3_cost_gemini.py` | Создан расчёт Gemini, который по умолчанию читает measurements_gemini.json               |
+| `.env` | Использован для Gemini API-ключа; содержимое не публикуется                              |
+| `measurements_gemini.json`, `measurements.json` | Сохранены измерения в 2 версиях Gemini                                                   |
+| `conclusion.txt` | Журнал команд, выводов и промежуточных выводов. Не выгружен в гитхаб тк черновой вариант |
 
 ## AI-use declaration
 
-При выполнении работы использовался ChatGPT для объяснения заданий, подготовки вариантов кода Gemini-адаптации, разбора ошибок API и формулирования выводов. Команды запускались в локальном окружении, а их выводы сохранялись в `conclusion.txt`.
+При выполнении работы использовался ChatGPT для объяснения заданий, подготовки вариантов кода Gemini-адаптации, разбора ошибок API и формулирования выводов. Команды запускались в локальном окружении, а их выводы сохранялись в локальный `conclusion.txt`.
 
