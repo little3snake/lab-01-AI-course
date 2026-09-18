@@ -92,14 +92,15 @@ MY_TEXT: Dict[str, str] = {
 
 # core 2: kazakh letters comparison
 KAZAKH_SHARED: Dict[str, str] = {
-    "en": "The bank client received information about card and credit services.",
-    "ru": "Клиент банка получил информацию о карте и кредитных услугах.",
-    "kk": "Банк клиенті карта және кредит қызметтері туралы ақпарат алды.",
+    "en": "A cashier and a customer are sitting at the bank's cash desk.",
+    "ru": "В кассе банка сидят кассир и клиент.",
+    "kk": "Банк кассасында кассир мен клиент отыр.",
 }
+
 KAZAKH_SPECIFIC: Dict[str, str] = {
-    "en": "The customer received detailed information about payment conditions.",
-    "ru": "Клиент получил подробную информацию об условиях оплаты.",
-    "kk": "Тұтынушы төлем шарттары жөніндегі толық мәліметті қабылдады.",
+    "en": "An adviser and a customer are sitting in the bank branch.",
+    "ru": "В отделении банка сидят консультант и клиент.",
+    "kk": "Банк бөлімшесінде кеңесші мен тұтынушы отыр.",
 }
 
 # core 3: json files
